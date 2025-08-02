@@ -1,0 +1,4 @@
+ccxt
+websockets
+asyncio
+pybind11
