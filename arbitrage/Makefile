@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -O3 -Wall -shared -std=c++11 -fPIC -undefined dynamic_lookup
+CXXFLAGS = -O3 -Wall -shared -std=c++17 -fPIC -undefined dynamic_lookup
 VENV_DIR = venv
 VENV_PYTHON = $(VENV_DIR)/bin/python
 PYTHON_INCLUDES = $(shell $(VENV_PYTHON) -m pybind11 --includes)
