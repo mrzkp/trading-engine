@@ -9,7 +9,12 @@ long long f(int n){
     return out;
 }
 
+long long a(int n){
+    return n;
+}
+
 PYBIND11_MODULE(api, m) {
     m.doc() = "ex binding";
     m.def("factorial", &f, "factorial fn");
+    m.def("a", &a, "test");
 }
