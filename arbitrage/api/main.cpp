@@ -1,10 +1,7 @@
 #include <iostream>
 #include <pybind11/pybind11.h>
 
-using namespace std;
-
-
-long long factorial(int n){
+long long f(int n){
     long long out = 1;
     for (int i = 2; i <= n; i++) {
         out *= i;
@@ -12,10 +9,7 @@ long long factorial(int n){
     return out;
 }
 
-int main(){
-    return 0;
-}
-
-PYBIND11_MODULE(api_module, m) {
-
+PYBIND11_MODULE(api, m) {
+    m.doc() = "ex binding";
+    m.def("factorial", &f, "factorial fn");
 }
