@@ -1,6 +1,10 @@
 import ccxt
 import json
 
+"""
+Test for reloading markets.
+"""
+
 def main():
     try:
         poloniex = ccxt.poloniex({'verbose': True}) # log HTTP requests`
