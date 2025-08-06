@@ -1,5 +1,0 @@
-ccxt
-websockets
-asyncio
-pybind11
-json
