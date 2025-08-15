@@ -1,4 +1,4 @@
-package src
+package main
 
 import (
 	"log"
@@ -7,34 +7,46 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-type OrderBook struct {
-	Buys  map[string]float64
-	Sells map[string]float64
-}
-
-func InitOrderBook() *OrderBook {
-	return &OrderBook{
-		Buys:  make(map[string]float64),
-		Sells: make(map[string]float64),
-	}
-}
-
 func main() {
-	symbol := "btcusdt"
-	base_url := "wss://stream.binance.com:9443/stream?streams=" + symbol
-
-	var conn *websocket.Conn
+	// Load API keys
+	var AK, SK string
 	var err error
-	// new_order_book := InitOrderBook()
 
-	for {
-		conn, _, err = websocket.DefaultDialer.Dial(base_url, nil)
-		if err != nil {
-			log.Printf("cnnect error")
-			time.Sleep(5 * time.Second)
-			continue
-		}
-		log.Println("connected")
+	AK, SK, err = LoadAPIKeys()
+	if err != nil {
+		log.Fatalf("Failed to load API keys: %v", err)
 	}
 
+	log.Printf(AK)
+	log.Printf(SK)
+	log.Printf("API keys loaded successfully")
+
+	// Establish wss connection
+	var conn *websocket.Conn
+	for {
+		conn, err = connectWebSocket()
+		if err == nil {
+			log.Println("Connected to Binance WebSocket API")
+			break
+		}
+		log.Printf("Connection failed: %v. Retrying in 5 seconds...", err)
+		time.Sleep(5 * time.Second)
+	}
+	defer conn.Close() // schedules func call when main exists;
+
+	// Send ping test connection
+	req := BinanceRequest{
+		ID:     "egia9gjeoa123123",
+		Method: "ping",
+		Params: make(map[string]interface{}),
+	}
+	sendPingFrame(conn, req)
+	log.Println("Sent ping request")
+
+	// Read response
+	_, err = readResponse(conn)
+	if err != nil {
+		log.Printf("Failed to process response: %v", err)
+		return
+	}
 }
