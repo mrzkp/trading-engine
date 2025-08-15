@@ -24,7 +24,7 @@ We close connection after exiting out of main.
 
 ## To-Do:
 #### IMMEDIATE
-1) Establish websocket conn with binance server. Send pings and pongs back and forth to prolong said connection.
+1) ~~Establish websocket conn with binance server. Send pings and pongs back and forth to prolong said connection.~~
 2) Get particular currency pair from binance and obtain orderbook.
 3) From said orderbook (L2 orderbook), utilize backend API call (C++ side) to determine sufficient vol.
 
