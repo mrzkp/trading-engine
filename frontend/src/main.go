@@ -36,7 +36,7 @@ func main() {
 
 	// Send ping test connection
 	req := BinanceRequest{
-		ID:     "egia9gjeoa123123",
+		ID:     "test",
 		Method: "ping",
 		Params: make(map[string]interface{}),
 	}
